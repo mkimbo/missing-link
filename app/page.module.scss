@@ -11,33 +11,21 @@
   font-style: normal;
   font-weight: 800;
   letter-spacing: -0.025em;
+  > span {
+    font-size: 2rem;
+    @include lg {
+      font-size: 4rem;
+    }
+    color: $primaryColor;
+  }
   @include lg {
     font-size: 4rem;
   }
 }
 
-.title a {
-  text-decoration: none;
-  color: $primaryColor;
-}
-
 .title a:hover,
 .title a:focus,
 .title a:active {
-  text-decoration: underline;
-}
-
-.exploreLink {
-  display: inline-flex;
-  align-items: center;
-  &:hover {
-    color: $primaryColor;
-  }
-}
-
-.exploreLink :hover,
-.exploreLink :focus,
-.exploreLink :active {
   text-decoration: underline;
 }
 
@@ -47,9 +35,18 @@
 }
 
 .description {
-  margin: 4rem 0;
+  margin: 25px 0;
   line-height: 1.5;
   font-size: 1.5rem;
+}
+
+.about {
+  //margin: 4rem 0;
+  line-height: 1.3;
+  font-size: 0.9rem;
+  @include lg {
+    font-size: 1.1rem;
+  }
 }
 
 .card {
@@ -59,11 +56,14 @@
   padding: 1.5rem;
   color: inherit;
   text-decoration: none;
-  border: 1px solid #eaeaea;
+  //border: 1px solid #eaeaea;
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
   max-width: 420px;
   text-align: center;
+  .icon {
+    margin: auto;
+  }
 }
 
 .card h2 {
@@ -71,16 +71,11 @@
   font-size: 1.5rem;
 }
 
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
-}
-
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
-}
+// .card p {
+//   margin: 0;
+//   //font-size: 1.25rem;
+//   line-height: 1.5;
+// }
 
 @media (prefers-color-scheme: dark) {
   .title {
@@ -90,7 +85,7 @@
     background-clip: text;
     text-fill-color: transparent;
   }
-  .title a {
+  .title span {
     background: linear-gradient(180deg, $primaryColor 0%, $primaryColor 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -98,12 +93,9 @@
     text-fill-color: transparent;
   }
   .card {
-    border-color: #222;
+    //border-color: #222;
   }
   .code {
     background: #111;
-  }
-  .logo img {
-    filter: invert(1);
   }
 }

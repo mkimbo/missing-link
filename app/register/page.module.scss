@@ -60,45 +60,5 @@
         }
       }
     }
-    .underline {
-      &:before {
-        content: "";
-        position: absolute;
-        height: 1px;
-        width: 100%;
-        bottom: -5px;
-        left: 0;
-        background: $white;
-      }
-      &:after {
-        content: "";
-        position: absolute;
-        height: 1px;
-        width: 100%;
-        bottom: -5px;
-        left: 0;
-        background: linear-gradient(45deg, #8e2de2, #4a00e0);
-        transform: scaleX(0);
-        transition: all 0.3s ease-in-out;
-        transform-origin: left;
-      }
-    }
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .title {
-      background: linear-gradient(180deg, #ffffff 0%, #aaaaaa 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
-    }
-    .title a {
-      background: linear-gradient(180deg, #0070f3 0%, #0153af 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
-    }
   }
 }

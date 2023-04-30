@@ -1,67 +1,102 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { DiJqueryLogo } from "react-icons/di";
-import { FiMenu } from "react-icons/fi";
-import { GrClose } from "react-icons/gr";
+import React, { useState } from "react";
 import Link from "next/link";
 import styles from "./navbar.module.scss";
-import { clientConfig } from "../../config/client-config";
 import classNames from "classnames";
+
+import {
+  MdAddAlert,
+  MdPersonSearch,
+  MdAccountCircle,
+  MdMenu,
+  MdClose,
+} from "react-icons/md";
+import { LogoIcon } from "../../ui/icons";
 export function Navbar() {
-  const [click, setClicked] = useState(false);
-  const [showNav, setShowNav] = useState(false);
-  const navMenuClasses = classNames(styles.navMenu, styles.navMenuActive);
+  const [navActive, setNavActive] = useState(false);
+  const [activeIdx, setActiveIdx] = useState(3);
+  const navMenuListClasses = classNames(styles.navMenuList, {
+    [styles.navMenuListActive]: navActive,
+  });
 
-  const navBarClasses = classNames(
-    styles.navbarContainer,
-    styles.navbarContainerActive
-  );
-
-  const handleClick = () => {
-    setClicked(!click);
+  type TNavLink = {
+    text: string;
+    href: string;
+    active?: boolean;
+    icon: React.ReactElement;
   };
 
-  const handleCloseMobileMenu = () => {
-    setClicked(false);
+  const navLinks: TNavLink[] = [
+    {
+      text: "New Alert",
+      href: "/new/alert",
+      icon: <MdAddAlert color={"#ff4400"} fontSize={26} />,
+    },
+    {
+      text: "Search",
+      href: "/search",
+      icon: <MdPersonSearch color={"#ff4400"} fontSize={26} />,
+    },
+    {
+      text: "Profile",
+      href: "/profile",
+      icon: <MdAccountCircle color={"#ff4400"} fontSize={26} />,
+    },
+  ];
+  const NavItem = (item: TNavLink) => {
+    return (
+      <Link className={styles.navItem} href={item.href}>
+        <span className={styles.navIcon}>{item.icon}</span>
+        <span
+          className={classNames(styles.navLink, {
+            [styles.navLinkActive]: item.active,
+          })}
+        >
+          {item.text}
+        </span>
+      </Link>
+    );
   };
-
-  useEffect(() => {
-    document.addEventListener("scroll", () => {
-      if (window.scrollY > 100) {
-        setShowNav(true);
-      } else {
-        setShowNav(false);
-      }
-    });
-  }, []);
 
   return (
-    <nav className={showNav ? styles.navbarContainer : navBarClasses}>
-      <Link href="/" className={styles.navbarLogo}>
-        <DiJqueryLogo />
-        {/* <span>React Navbar</span> */}
-      </Link>
-      <div className={styles.menuIcon} onClick={handleClick}>
-        {click ? <GrClose /> : <FiMenu />}
-      </div>
-      <ul className={click ? navMenuClasses : styles.navMenu}>
-        <li className={styles.navLinkItems} onClick={handleClick}>
-          <Link href="/" className={styles.navLink}>
-            Home
-          </Link>
-        </li>
-        <li className={styles.navLinkItems} onClick={handleCloseMobileMenu}>
-          <Link href="/profile" className={styles.navLink}>
-            Profile
-          </Link>
-        </li>
-        <li className={styles.navLinkItems} onClick={handleCloseMobileMenu}>
-          <Link href="/register" className={styles.navLink}>
-            Settings
-          </Link>
-        </li>
-      </ul>
-    </nav>
+    <header className={styles.navContainer}>
+      <nav className={styles.navBar}>
+        <Link href={"/"}>
+          <div
+            className={styles.logo}
+            onClick={() => {
+              setActiveIdx(3);
+              setNavActive(false);
+            }}
+          >
+            <LogoIcon />
+          </div>
+        </Link>
+        <div
+          onClick={() => setNavActive(!navActive)}
+          className={styles.navMenuBar}
+        >
+          {navActive ? (
+            <MdClose color={"#ff4400"} fontSize={30} />
+          ) : (
+            <MdMenu color={"#ff4400"} fontSize={30} />
+          )}
+        </div>
+        <div className={navMenuListClasses}>
+          {navLinks.map((menu, idx) => (
+            <div
+              onClick={() => {
+                setActiveIdx(idx);
+                setNavActive(false);
+              }}
+              key={menu.text}
+            >
+              <NavItem active={activeIdx === idx} {...menu} />
+            </div>
+          ))}
+        </div>
+      </nav>
+    </header>
   );
 }

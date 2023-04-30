@@ -26,32 +26,6 @@ export function UserProfile() {
     window.location.reload();
   });
 
-  const [handleRefresh, isRefreshLoading] = useLoadingCallback(async () => {
-    if (!tenant) {
-      return;
-    }
-
-    await fetch("/api/refresh-tokens", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${tenant.idToken}`,
-      },
-    });
-  });
-
-  const [handleClaims, isClaimsLoading] = useLoadingCallback(async () => {
-    if (!tenant) {
-      return;
-    }
-
-    await fetch("/api/custom-claims", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${tenant.idToken}`,
-      },
-    });
-  });
-
   if (!tenant && hasLoggedOut) {
     return (
       <div className={styles.container}>
@@ -77,20 +51,6 @@ export function UserProfile() {
       </div>
       <div className={styles.buttonGroup}>
         <Button
-          loading={isClaimsLoading}
-          disabled={isClaimsLoading}
-          onClick={handleClaims}
-        >
-          Set custom user claims
-        </Button>
-        <Button
-          loading={isRefreshLoading}
-          disabled={isRefreshLoading}
-          onClick={handleRefresh}
-        >
-          Refresh tokens
-        </Button>
-        <Button
           loading={isLogoutLoading}
           disabled={isLogoutLoading}
           onClick={handleLogout}
@@ -101,3 +61,29 @@ export function UserProfile() {
     </div>
   );
 }
+
+// const [handleRefresh, isRefreshLoading] = useLoadingCallback(async () => {
+//   if (!tenant) {
+//     return;
+//   }
+
+//   await fetch("/api/refresh-tokens", {
+//     method: "GET",
+//     headers: {
+//       Authorization: `Bearer ${tenant.idToken}`,
+//     },
+//   });
+// });
+
+// const [handleClaims, isClaimsLoading] = useLoadingCallback(async () => {
+//   if (!tenant) {
+//     return;
+//   }
+
+//   await fetch("/api/custom-claims", {
+//     method: "GET",
+//     headers: {
+//       Authorization: `Bearer ${tenant.idToken}`,
+//     },
+//   });
+// });

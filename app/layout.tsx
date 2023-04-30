@@ -15,11 +15,9 @@ export default function RootLayout({
         <div className={styles.container}>
           <main className={styles.main}>{children}</main>
           <footer className={styles.footer}>
-            <a
-              href="https://github.com/awinogrodzki/next-firebase-auth-edge"
-              target="_blank"
-            >
-              footer in root layout
+            <span> Code </span>
+            <a href="https://github.com/mkimbo/missing-link" target="_blank">
+              @github
             </a>
           </footer>
         </div>
