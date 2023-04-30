@@ -11,7 +11,7 @@ import { useAuth } from "../../auth/hooks";
 import styles from "./login.module.scss";
 import { Button } from "../../ui/button";
 import { LoadingIcon } from "../../ui/icons";
-import { setVerifiedCookie } from "../../utils/functions";
+import { getVerifiedCookie, setVerifiedCookie } from "../../utils/functions";
 
 export function LoginPage() {
   const router = useRouter();
@@ -19,6 +19,18 @@ export function LoginPage() {
   const [hasLogged, setHasLogged] = React.useState(false);
   const { tenant } = useAuth();
   const { getFirebaseAuth } = useFirebaseAuth(clientConfig);
+  const searchParams = useSearchParams();
+  React.useEffect(() => {
+    const redirect = searchParams?.get("redirect") || "/";
+    const verified = getVerifiedCookie();
+    if (verified === "true") {
+      if (!redirect) {
+        router.push("/");
+      } else {
+        router.push(redirect);
+      }
+    }
+  }, []);
   const [handleLoginWithGoogle, isLoading] = useLoadingCallback(async () => {
     setHasLogged(false);
     const { GoogleAuthProvider } = await import("firebase/auth");
@@ -35,9 +47,8 @@ export function LoginPage() {
       },
     });
     setHasLogged(true);
+
     await getUser(tenant.id);
-    const redirect = params?.get("redirect");
-    router.push(redirect ?? "/");
   });
   const getUser = async (id: string) => {
     try {
@@ -48,8 +59,11 @@ export function LoginPage() {
       if (res?.status == 200) {
         setVerifiedCookie("true");
       } else {
-        console.log("User not found, not verified");
+        console.log("User not verified");
       }
+      router.refresh();
+      const redirect = params?.get("redirect");
+      router.replace(redirect ?? "/");
       return res;
     } catch (error) {
       console.log("error fetching user", error);

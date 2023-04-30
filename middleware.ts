@@ -73,12 +73,14 @@ export async function middleware(request: NextRequest) {
       }
       if (
         request.nextUrl.pathname === "/register" ||
-        request.nextUrl.pathname === "/verify"
+        request.nextUrl.pathname === "/verify" ||
+        request.nextUrl.pathname === "/login"
       ) {
         if (userVerified?.value === "true" && request.nextUrl.search === "") {
           return redirectToHome(request);
         }
       }
+
       return NextResponse.next();
     },
     isTokenValid: (token) => token.email_verified ?? false,

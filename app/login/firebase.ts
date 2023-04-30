@@ -20,9 +20,6 @@ export const mapFirebaseResponseToTenant = async (
 ): Promise<Tenant> => {
   const providerData = user.providerData && user.providerData[0];
   const tokenResult = await user.getIdTokenResult();
-  // await fetch user from firestore using decodedToken.uid
-  const absoluteUrl = `${window.location.origin}/api/users/${user.uid}`;
-
   if (!user.isAnonymous && user.emailVerified && providerData) {
     return {
       id: user.uid,
