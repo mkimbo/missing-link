@@ -1,3 +1,0 @@
-type TPhoneNumber = {
-  phoneNumber: string;
-};
