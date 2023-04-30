@@ -2,7 +2,7 @@
 
 This is a web application that allows users to post missing person alerts and view alerts posted by others. Users can also contact the person who posted the alert if they have any information about the missing person.
 
-Live Demo is available at [https://missinglink.vercel.app/](https://missing-link.vercel.app/)
+Live Demo is available at [https://missing-link.vercel.app/](https://missing-link.vercel.app/)
 
 ## Technologies Used
 
