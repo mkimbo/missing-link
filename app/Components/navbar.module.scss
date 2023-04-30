@@ -21,16 +21,6 @@
 }
 .navMenuBar {
   padding: 15px 0px;
-  // display: flex;
-  // flex-direction: column;
-  // row-gap: 6px;
-  // cursor: pointer;
-  // div {
-  //   width: 40px;
-  //   height: 4px;
-  //   background-color: $primaryColor;
-  //   border-radius: 2px;
-  // }
 }
 .navItem {
   display: inline-flex;
@@ -45,9 +35,9 @@
   flex-direction: column;
   position: fixed;
   top: 60px;
-  width: 370px;
+  width: 94%;
   row-gap: 24px;
-  right: -370px;
+  right: -94%;
   padding: 24px 16px 24px 0;
   transition: all 0.2s;
   min-height: calc(100vh - 60px);
