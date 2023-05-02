@@ -19,24 +19,6 @@ export default function Home() {
           last saw the person. Users can also report the sighting of a missing
           person on the platform
         </p>
-        {/* <h2>Explore</h2>
-        <Link href="/register">
-          <div className={styles.exploreLink}>
-            <IoIosArrowForward fontSize={23} color={"#ff4400"} /> Send New Alert
-          </div>
-        </Link>
-        <Link href="/new/sighting">
-          <div className={styles.exploreLink}>
-            <IoIosArrowForward fontSize={23} color={"#ff4400"} /> Report a
-            Sighting
-          </div>
-        </Link>
-        <Link href="/profile">
-          <div className={styles.exploreLink}>
-            <IoIosArrowForward fontSize={23} color={"#ff4400"} /> Search Missing
-            List
-          </div>
-        </Link> */}
       </div>
     </div>
   );

@@ -72,11 +72,11 @@ export function LoginPage() {
 
   return (
     <div className={styles.page}>
-      <h2>next-firebase-auth-edge example login page</h2>
+      <h2>Let your community help locate missing loved ones</h2>
       {!tenant && !isLoading && !hasLogged && (
         <div className={styles.info}>
           <p>
-            No user found. Singing in as anonymous... <LoadingIcon />
+            <LoadingIcon />
           </p>
         </div>
       )}

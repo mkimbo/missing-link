@@ -3,79 +3,36 @@
 .container {
   border-radius: 10px;
   color: $white;
-  border: 1px solid $primaryColor;
-  padding: 1.5rem;
-  text-align: center;
+  //border: 1px solid $primaryColor;
+  padding: 5px;
+  //text-align: center;
   @include lg {
     width: 60%;
     margin: 0 auto;
   }
-
-  .title {
-    margin: 0;
-    line-height: 1.15;
-    font-size: 2rem;
-    font-style: normal;
-    font-weight: 800;
-    letter-spacing: -0.025em;
-    text-align: center;
-    a {
-      text-decoration: none;
-      color: #0070f3;
-      &:hover,
-      :focus,
-      :active {
-        text-decoration: underline;
-      }
-    }
-  }
-  .description {
-    margin: 4rem 0;
-    line-height: 1.5;
-    font-size: 1.5rem;
-  }
-
-  form {
+  .searchHit {
     display: flex;
     flex-direction: column;
-  }
-
-  .inputField {
-    position: relative;
-    &:first-child {
-      margin-bottom: 1.5rem;
+    align-items: center;
+    .hitImage {
+      border-radius: 10px;
     }
-    input {
-      outline: none;
-      font-size: 0.9rem;
-      color: $white;
-      width: 50%;
-      height: 35px;
-      &:focus {
-        transform: scaleX(1);
-        .underline {
-          &::after {
-            transform: scaleX(1);
-          }
-        }
+    .hitName {
+      color: $primaryColor;
+      font-size: 10px;
+      > span {
+        color: $white;
       }
     }
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .title {
-      background: linear-gradient(180deg, #ffffff 0%, #aaaaaa 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
-    }
-    .title a {
-      background: linear-gradient(180deg, #0070f3 0%, #0153af 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
+    .hitDetails {
+      display: inline-flex;
+      color: $primaryColor;
+      font-size: 10px;
+      align-items: center;
+      justify-content: left;
+      > span {
+        color: $white;
+      }
     }
   }
 }
