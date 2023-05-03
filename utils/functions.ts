@@ -43,3 +43,14 @@ export const deleteVerifiedCookie = () => {
 export const getVerifiedCookie = () => {
   return Cookies.get("userVerified");
 };
+
+export const truncateText = (str: string, n: number, b?: boolean) => {
+  if (str.length <= n) {
+    return str;
+  }
+  const useWordBoundary = b != null ? b : true;
+  const subString = str.substring(0, n - 1); // the original check
+  return useWordBoundary
+    ? subString.substring(0, subString.lastIndexOf(" "))
+    : subString;
+};

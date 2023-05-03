@@ -15,9 +15,8 @@ export default function Home() {
       <div className={styles.card}>
         <VscBroadcast className={styles.icon} color={"#ff4400"} fontSize={80} />
         <p className={styles.about}>
-          Broadcast a missing person alert to all users within the location you
-          last saw the person. Users can also report the sighting of a missing
-          person on the platform
+          Broadcast a missing person alert to the public and get help from the
+          community to find your loved one. Mapema Ndio Best!
         </p>
       </div>
     </div>

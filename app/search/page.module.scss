@@ -7,31 +7,64 @@
   padding: 5px;
   //text-align: center;
   @include lg {
-    width: 60%;
+    width: 70%;
     margin: 0 auto;
   }
   .searchHit {
+    background-color: $lightGrey;
+    border-radius: 10px;
+    width: 100%;
+    @include lg {
+      width: 300px;
+    }
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    margin-bottom: 10px;
+
     .hitImage {
       border-radius: 10px;
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+      margin-right: 5px;
     }
-    .hitName {
-      color: $primaryColor;
-      font-size: 10px;
-      > span {
-        color: $white;
-      }
-    }
+
     .hitDetails {
-      display: inline-flex;
-      color: $primaryColor;
-      font-size: 10px;
-      align-items: center;
-      justify-content: left;
-      > span {
+      display: flex;
+
+      flex-direction: column;
+
+      height: 120px;
+      width: 100%;
+      padding: 3px;
+      .hitName {
+        color: $primaryColor;
+        font-size: 15px;
+      }
+      .hitExtra {
         color: $white;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 5px;
+        > span {
+          font-size: 12px;
+        }
+      }
+      .hitLocation {
+        color: $white;
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        margin-top: 1px;
+        .locationIcon {
+          font-size: 20px;
+          min-width: 25px;
+        }
+        > span {
+          align-self: flex-start;
+          font-size: 12px;
+        }
       }
     }
   }

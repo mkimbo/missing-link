@@ -40,7 +40,7 @@
 }
 .ais-Hits-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 130px);
+  grid-template-columns: repeat(auto-fill, 300px);
   gap: 10px;
   justify-content: center;
   width: 100%;
@@ -71,6 +71,6 @@
   }
   .ais-Hits-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 150px);
+    grid-template-columns: repeat(auto-fill, 300px);
   }
 }
