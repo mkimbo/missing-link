@@ -34,8 +34,8 @@ export function Navbar() {
       icon: <MdAddAlert color={"#ff4400"} fontSize={26} />,
     },
     {
-      text: "Search",
-      href: "/search",
+      text: "Active Cases",
+      href: "/cases",
       icon: <MdPersonSearch color={"#ff4400"} fontSize={26} />,
     },
     {

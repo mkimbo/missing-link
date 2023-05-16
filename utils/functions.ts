@@ -1,5 +1,10 @@
-//const geofire = require("geofire-common");
+const geofire = require("geofire-common");
+import { geocodeByPlaceId, getLatLng } from "react-places-autocomplete";
 import Cookies from "js-cookie";
+import { add } from "date-fns";
+import { count } from "console";
+import { type } from "os";
+import { TDetailedLocation } from "../models/missing_person.model";
 export const loadScript = (
   src: string,
   position: HTMLElement | null,
@@ -16,10 +21,10 @@ export const loadScript = (
   position.appendChild(script);
 };
 
-// export const getGeoHash = (_geoloc: { lat: number; lng: number }) => {
-//   const hash = geofire?.geohashForLocation([_geoloc.lat, _geoloc.lng]);
-//   return hash;
-// };
+export const getGeoHash = (geoloc: { lat: number; lng: number }) => {
+  const hash = geofire?.geohashForLocation([geoloc.lat, geoloc.lng]);
+  return hash;
+};
 
 export const setVerifiedCookie = (val: string) => {
   // Set a cookie
@@ -53,4 +58,52 @@ export const truncateText = (str: string, n: number, b?: boolean) => {
   return useWordBoundary
     ? subString.substring(0, subString.lastIndexOf(" "))
     : subString;
+};
+
+export const processPlaceDetails: (
+  place: google.maps.places.PlaceResult
+) => Promise<TDetailedLocation | null> = async (place) => {
+  const placeId = place.place_id;
+  if (!placeId) {
+    return null;
+  }
+  let geoloc: google.maps.LatLngLiteral;
+  let geohash: string = "";
+  let longAddress: string = "";
+  let formattedAddress: string = place.formatted_address
+    ? place.formatted_address
+    : "";
+  let county: string = "";
+  let constituency: string = "";
+  const results = await geocodeByPlaceId(placeId);
+  //get lat long
+  const latLng = await getLatLng(results[0]);
+  geoloc = latLng;
+  //get geohash
+  geohash = getGeoHash(latLng);
+  //get county & constituency
+  const addressComponents = place.address_components;
+  if (addressComponents?.length) {
+    const longNameArray = addressComponents.map(
+      (component) => component.long_name
+    );
+    longAddress = longNameArray.join(",");
+    const countyName = longNameArray.find((name) => name.includes("County"));
+    const constituencyName = longNameArray.find((name) =>
+      name.includes("Consituency")
+    );
+    county = countyName ? countyName : "";
+    constituency = constituencyName ? constituencyName : "";
+  }
+  const detailedLocation: TDetailedLocation = {
+    placeId,
+    geoloc,
+    geohash,
+    longAddress,
+    formattedAddress,
+    county,
+    constituency,
+  };
+  console.log("detailedLocation", detailedLocation);
+  return detailedLocation;
 };

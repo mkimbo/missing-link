@@ -3,8 +3,21 @@ import * as firebaseAdmin from "firebase-admin";
 
 // get this JSON from the Firebase board
 // you can also store the values in environment variables
-import serviceAccount from "../../config/AdminSA.json";
+//import serviceAccount from "../../config/AdminSA.json";
 import { TUserDevice } from "../../models/missing_person.model";
+
+const serviceAccount = {
+  type: process.env.FIREBASE_TYPE,
+  project_id: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID,
+  private_key: process.env.FIREBASE_PRIVATE_KEY!.replace(/\\n/g, "\n"),
+  client_email: process.env.FIREBASE_CLIENT_EMAIL,
+  client_id: process.env.FIREBASE_CLIENT_ID,
+  auth_uri: process.env.FIREBASE_AUTH_URI,
+  token_uri: process.env.FIREBASE_TOKEN_URI,
+  auth_provider_x509_cert_url: process.env.FIREBASE_AUTH_PROVIDER_X509_CERT_URL,
+  client_x509_cert_url: process.env.FIREBASE_CLIENT_X509_CERT_URL,
+};
 
 if (!firebaseAdmin.apps.length) {
   firebaseAdmin.initializeApp({
@@ -26,29 +39,3 @@ export const getUser = async (id: string) => {
     console.log("error fetching user", error);
   }
 };
-
-// export const uploadFileToCloud = async (file: File) => {
-//   try {
-//     const fileName = `${Date.now()}-${file.name}`;
-//     const storageRef = ref(storage, "files/" + fileName);
-//     const uploadTaskSnapshot = await uploadBytesResumable(storageRef, file);
-//     const downloadUrl = await getDownloadURL(uploadTaskSnapshot.ref);
-//     return downloadUrl;
-//   } catch (error) {
-//     console.log("error uploading to storage", error);
-//   }
-// };
-
-/* export const onVerifyCode = async (enteredCode: string) => {
-  let success = false;
-  window.confirmationResult
-    .confirm(enteredCode)
-    .then((result) => {
-      console.log(result, "success");
-      addPhoneNumber({ verified: true }).then((result) => true);
-      //console.log(result, "success");
-      // ...
-    })
-    .catch((error) => false);
-  return success;
-}; */

@@ -1,4 +1,5 @@
 import { Navbar } from "./Components/Navbar";
+import ToastProvider from "./Components/ToastProvider";
 import "./globals.scss";
 import styles from "./layout.module.scss";
 
@@ -10,8 +11,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head />
-      <body>
+      <body style={{ overflowY: "hidden" }}>
         <Navbar />
+        <ToastProvider />
         <div className={styles.container}>
           <main className={styles.main}>{children}</main>
           <footer className={styles.footer}>

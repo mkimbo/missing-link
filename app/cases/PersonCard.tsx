@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import * as React from "react";
 import Image from "next/image";
@@ -9,25 +8,31 @@ import { placeholderUrl } from "../../utils/constants";
 import { CgGenderMale, CgGenderFemale } from "react-icons/cg";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { truncateText } from "../../utils/functions";
-interface TSearchHit {
-  objectID: string;
-  image: string;
-  fullname: string;
-}
+import { TPerson } from "../../models/missing_person.model";
 
-export function SearchHit({ hit }: any) {
+type PersonCardProps = {
+  person: TPerson;
+};
+
+export default function PersonCard({ person }: PersonCardProps) {
   const genderIcon =
-    hit?.gender == "Male" ? (
+    person.gender == "Male" ? (
       <CgGenderMale color={"#ff4400"} fontSize={25} />
     ) : (
       <CgGenderFemale color={"#ff4400"} fontSize={25} />
     );
+
+  function toSentenceCase(str: string) {
+    return str.toLowerCase().replace(/(?:^|\s)\w/g, function (c) {
+      return c.toUpperCase();
+    });
+  }
   return (
-    <Link className={styles.searchHit} href={`/missing/${hit?.objectID}`}>
+    <Link className={styles.searchHit} href={`/cases/${person?.id}`}>
       <Image
         className={styles.hitImage}
-        src={hit?.image ? hit?.image : sampleMissing}
-        alt={hit?.fullname}
+        src={person.images!.length! > 0 ? person.images[0]! : sampleMissing}
+        alt={person.fullname}
         width={120}
         height={120}
         placeholder="blur"
@@ -35,10 +40,10 @@ export function SearchHit({ hit }: any) {
       />
 
       <div className={styles.hitDetails}>
-        <div className={styles.hitName}>{hit?.fullname}</div>
+        <div className={styles.hitName}>{person.fullname}</div>
         <div className={styles.hitExtra}>
           {genderIcon}
-          <span>{` ${hit?.age}yrs`}</span>
+          <span>{` ${person.age}yrs`}</span>
         </div>
         <div className={styles.hitLocation}>
           <MdOutlineLocationOn
@@ -46,7 +51,10 @@ export function SearchHit({ hit }: any) {
             color={"#ff4400"}
             fontSize={20}
           />
-          <span>{` ${truncateText(hit?.lastSeenLocation?.address, 50)}`}</span>
+          <span>{` ${truncateText(
+            toSentenceCase(person.lastSeenLocation),
+            50
+          )}`}</span>
         </div>
       </div>
     </Link>
